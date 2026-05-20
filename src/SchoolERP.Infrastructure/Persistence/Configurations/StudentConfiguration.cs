@@ -35,13 +35,13 @@ public class StudentConfiguration : IEntityTypeConfiguration<Student>
         builder.HasIndex(s => s.SchoolId);
         builder.HasIndex(s => new { s.TenantId, s.StudentCode })
             .IsUnique()
-            .HasFilter("student_code IS NOT NULL");
+            .HasFilter("\"StudentCode\" IS NOT NULL");
         builder.HasIndex(s => new { s.TenantId, s.NationalId })
             .IsUnique()
-            .HasFilter("national_id IS NOT NULL");
+            .HasFilter("\"NationalId\" IS NOT NULL");
         builder.HasIndex(s => new { s.TenantId, s.Nse })
             .IsUnique()
-            .HasFilter("nse IS NOT NULL");
+            .HasFilter("\"Nse\" IS NOT NULL");
 
         builder.HasOne(s => s.Tenant)
             .WithMany()

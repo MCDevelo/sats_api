@@ -68,14 +68,14 @@ namespace SchoolERP.Infrastructure.Persistence.Migrations
                 table: "teacher_assignments",
                 columns: new[] { "SectionId", "SubjectId", "AcademicYearId" },
                 unique: true,
-                filter: "is_active = true");
+                filter: "\"IsActive\" = true");
 
             migrationBuilder.CreateIndex(
                 name: "IX_teacher_assignments_TeacherId_SectionId_SubjectId_AcademicY~",
                 table: "teacher_assignments",
                 columns: new[] { "TeacherId", "SectionId", "SubjectId", "AcademicYearId" },
                 unique: true,
-                filter: "is_active = true");
+                filter: "\"IsActive\" = true");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_schedule_slots_teacher_assignments_TeacherAssignmentId",

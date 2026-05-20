@@ -18,7 +18,7 @@ public class EnrollmentConfiguration : IEntityTypeConfiguration<Enrollment>
         // A student can only be actively enrolled in one section per academic year
         builder.HasIndex(e => new { e.StudentId, e.AcademicYearId })
             .IsUnique()
-            .HasFilter("status = 'Active'");
+            .HasFilter("\"Status\" = 'Active'");
 
         builder.HasIndex(e => e.TenantId);
         builder.HasIndex(e => e.SectionId);

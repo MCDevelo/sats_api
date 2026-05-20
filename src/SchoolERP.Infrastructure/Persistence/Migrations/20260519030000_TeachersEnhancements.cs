@@ -113,7 +113,7 @@ namespace SchoolERP.Infrastructure.Persistence.Migrations
                 table: "teachers",
                 columns: new[] { "TenantId", "MinerdCode" },
                 unique: true,
-                filter: "minerd_code IS NOT NULL");
+                filter: "\"MinerdCode\" IS NOT NULL");
         }
 
         /// <inheritdoc />

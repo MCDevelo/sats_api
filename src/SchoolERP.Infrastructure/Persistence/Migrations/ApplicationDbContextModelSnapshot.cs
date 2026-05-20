@@ -312,7 +312,7 @@ namespace SchoolERP.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("StudentId", "AcademicYearId")
                         .IsUnique()
-                        .HasFilter("status = 'Active'");
+                        .HasFilter("\"Status\" = 'Active'");
 
                     b.ToTable("enrollments", (string)null);
                 });
@@ -960,7 +960,7 @@ namespace SchoolERP.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("TenantId", "CodeMinerd")
                         .IsUnique()
-                        .HasFilter("code_minerd IS NOT NULL");
+                        .HasFilter("\"CodeMinerd\" IS NOT NULL");
 
                     b.ToTable("schools", (string)null);
                 });
@@ -1126,11 +1126,11 @@ namespace SchoolERP.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("TenantId", "NationalId")
                         .IsUnique()
-                        .HasFilter("national_id IS NOT NULL");
+                        .HasFilter("\"NationalId\" IS NOT NULL");
 
                     b.HasIndex("TenantId", "StudentCode")
                         .IsUnique()
-                        .HasFilter("student_code IS NOT NULL");
+                        .HasFilter("\"StudentCode\" IS NOT NULL");
 
                     b.ToTable("students", (string)null);
                 });
@@ -1240,7 +1240,7 @@ namespace SchoolERP.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("TenantId", "GradeLevelId", "Code")
                         .IsUnique()
-                        .HasFilter("code IS NOT NULL");
+                        .HasFilter("\"Code\" IS NOT NULL");
 
                     b.ToTable("subjects", (string)null);
                 });
@@ -1341,11 +1341,11 @@ namespace SchoolERP.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("TenantId", "Email")
                         .IsUnique()
-                        .HasFilter("email IS NOT NULL");
+                        .HasFilter("\"Email\" IS NOT NULL");
 
                     b.HasIndex("TenantId", "NationalId")
                         .IsUnique()
-                        .HasFilter("national_id IS NOT NULL");
+                        .HasFilter("\"NationalId\" IS NOT NULL");
 
                     b.ToTable("teachers", (string)null);
                 });
@@ -1395,11 +1395,11 @@ namespace SchoolERP.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("SectionId", "SubjectId", "AcademicYearId")
                         .IsUnique()
-                        .HasFilter("is_active = true");
+                        .HasFilter("\"IsActive\" = true");
 
                     b.HasIndex("TeacherId", "SectionId", "SubjectId", "AcademicYearId")
                         .IsUnique()
-                        .HasFilter("is_active = true");
+                        .HasFilter("\"IsActive\" = true");
 
                     b.ToTable("teacher_assignments", (string)null);
                 });
@@ -1573,11 +1573,11 @@ namespace SchoolERP.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("TenantId", "Email")
                         .IsUnique()
-                        .HasFilter("email IS NOT NULL");
+                        .HasFilter("\"Email\" IS NOT NULL");
 
                     b.HasIndex("TenantId", "Phone")
                         .IsUnique()
-                        .HasFilter("phone IS NOT NULL");
+                        .HasFilter("\"Phone\" IS NOT NULL");
 
                     b.ToTable("users", (string)null);
                 });

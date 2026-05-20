@@ -19,8 +19,8 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(u => u.AvatarUrl).HasMaxLength(500);
         builder.Property(u => u.TwoFactorSecret).HasMaxLength(256);
 
-        builder.HasIndex(u => new { u.TenantId, u.Email }).IsUnique().HasFilter("email IS NOT NULL");
-        builder.HasIndex(u => new { u.TenantId, u.Phone }).IsUnique().HasFilter("phone IS NOT NULL");
+        builder.HasIndex(u => new { u.TenantId, u.Email }).IsUnique().HasFilter("\"Email\" IS NOT NULL");
+        builder.HasIndex(u => new { u.TenantId, u.Phone }).IsUnique().HasFilter("\"Phone\" IS NOT NULL");
         builder.HasIndex(u => u.TenantId);
 
         builder.HasOne(u => u.Tenant)

@@ -146,7 +146,7 @@ namespace SchoolERP.Infrastructure.Persistence.Migrations
                 table: "students",
                 columns: new[] { "TenantId", "Nse" },
                 unique: true,
-                filter: "nse IS NOT NULL");
+                filter: "\"Nse\" IS NOT NULL");
         }
 
         /// <inheritdoc />

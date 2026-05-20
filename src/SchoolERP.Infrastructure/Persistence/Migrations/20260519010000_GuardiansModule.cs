@@ -68,7 +68,7 @@ namespace SchoolERP.Infrastructure.Persistence.Migrations
                 table: "guardians",
                 columns: new[] { "TenantId", "NationalId" },
                 unique: true,
-                filter: "national_id IS NOT NULL");
+                filter: "\"NationalId\" IS NOT NULL");
 
             // ── student_guardians ─────────────────────────────────────────────
             migrationBuilder.CreateTable(

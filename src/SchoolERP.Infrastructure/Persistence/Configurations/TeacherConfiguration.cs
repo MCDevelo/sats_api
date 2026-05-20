@@ -30,13 +30,13 @@ public class TeacherConfiguration : IEntityTypeConfiguration<Teacher>
         builder.HasIndex(t => t.TenantId);
         builder.HasIndex(t => new { t.TenantId, t.NationalId })
             .IsUnique()
-            .HasFilter("national_id IS NOT NULL");
+            .HasFilter("\"NationalId\" IS NOT NULL");
         builder.HasIndex(t => new { t.TenantId, t.Email })
             .IsUnique()
-            .HasFilter("email IS NOT NULL");
+            .HasFilter("\"Email\" IS NOT NULL");
         builder.HasIndex(t => new { t.TenantId, t.MinerdCode })
             .IsUnique()
-            .HasFilter("minerd_code IS NOT NULL");
+            .HasFilter("\"MinerdCode\" IS NOT NULL");
 
         builder.HasOne(t => t.Tenant)
             .WithMany()

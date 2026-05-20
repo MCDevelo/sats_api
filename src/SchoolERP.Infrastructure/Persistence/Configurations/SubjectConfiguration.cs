@@ -18,7 +18,7 @@ public class SubjectConfiguration : IEntityTypeConfiguration<Subject>
         builder.HasIndex(s => s.GradeLevelId);
         builder.HasIndex(s => s.TenantId);
         builder.HasIndex(s => new { s.TenantId, s.GradeLevelId, s.Code })
-            .IsUnique().HasFilter("code IS NOT NULL");
+            .IsUnique().HasFilter("\"Code\" IS NOT NULL");
 
         builder.HasOne(s => s.GradeLevel)
             .WithMany(gl => gl.Subjects)

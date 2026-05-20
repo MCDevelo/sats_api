@@ -948,7 +948,7 @@ namespace SchoolERP.Infrastructure.Persistence.Migrations
                 table: "enrollments",
                 columns: new[] { "StudentId", "AcademicYearId" },
                 unique: true,
-                filter: "status = 'Active'");
+                filter: "\"Status\" = 'Active'");
 
             migrationBuilder.CreateIndex(
                 name: "IX_enrollments_TenantId",
@@ -1077,7 +1077,7 @@ namespace SchoolERP.Infrastructure.Persistence.Migrations
                 table: "schools",
                 columns: new[] { "TenantId", "CodeMinerd" },
                 unique: true,
-                filter: "code_minerd IS NOT NULL");
+                filter: "\"CodeMinerd\" IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Sections_AcademicYearId",
@@ -1129,14 +1129,14 @@ namespace SchoolERP.Infrastructure.Persistence.Migrations
                 table: "students",
                 columns: new[] { "TenantId", "NationalId" },
                 unique: true,
-                filter: "national_id IS NOT NULL");
+                filter: "\"NationalId\" IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_students_TenantId_StudentCode",
                 table: "students",
                 columns: new[] { "TenantId", "StudentCode" },
                 unique: true,
-                filter: "student_code IS NOT NULL");
+                filter: "\"StudentCode\" IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_students_UserId",
@@ -1209,14 +1209,14 @@ namespace SchoolERP.Infrastructure.Persistence.Migrations
                 table: "users",
                 columns: new[] { "TenantId", "Email" },
                 unique: true,
-                filter: "email IS NOT NULL");
+                filter: "\"Email\" IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_users_TenantId_Phone",
                 table: "users",
                 columns: new[] { "TenantId", "Phone" },
                 unique: true,
-                filter: "phone IS NOT NULL");
+                filter: "\"Phone\" IS NOT NULL");
         }
 
         /// <inheritdoc />

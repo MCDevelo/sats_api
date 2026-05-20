@@ -28,23 +28,8 @@ namespace SchoolERP.Infrastructure.Persistence.Migrations
                 oldType: "text",
                 oldNullable: true);
 
-            migrationBuilder.AlterColumn<string>(
-                name: "OldValues",
-                table: "audit_logs",
-                type: "jsonb",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "text",
-                oldNullable: true);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "NewValues",
-                table: "audit_logs",
-                type: "jsonb",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "text",
-                oldNullable: true);
+            migrationBuilder.Sql("ALTER TABLE audit_logs ALTER COLUMN \"OldValues\" TYPE jsonb USING \"OldValues\"::jsonb;");
+            migrationBuilder.Sql("ALTER TABLE audit_logs ALTER COLUMN \"NewValues\" TYPE jsonb USING \"NewValues\"::jsonb;");
 
             migrationBuilder.AlterColumn<string>(
                 name: "IpAddress",

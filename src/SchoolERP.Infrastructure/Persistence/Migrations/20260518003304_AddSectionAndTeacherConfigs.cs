@@ -271,14 +271,14 @@ namespace SchoolERP.Infrastructure.Persistence.Migrations
                 table: "teachers",
                 columns: new[] { "TenantId", "Email" },
                 unique: true,
-                filter: "email IS NOT NULL");
+                filter: "\"Email\" IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_teachers_TenantId_NationalId",
                 table: "teachers",
                 columns: new[] { "TenantId", "NationalId" },
                 unique: true,
-                filter: "national_id IS NOT NULL");
+                filter: "\"NationalId\" IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_sections_GradeLevelId_AcademicYearId_Name_Shift",

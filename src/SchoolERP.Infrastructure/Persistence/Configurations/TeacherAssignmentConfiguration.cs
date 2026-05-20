@@ -14,12 +14,12 @@ public class TeacherAssignmentConfiguration : IEntityTypeConfiguration<TeacherAs
         // A teacher can only have one active assignment per subject+section+year
         builder.HasIndex(a => new { a.TeacherId, a.SectionId, a.SubjectId, a.AcademicYearId })
             .IsUnique()
-            .HasFilter("is_active = true");
+            .HasFilter("\"IsActive\" = true");
 
         // Subject can only be assigned to ONE active teacher per section+year
         builder.HasIndex(a => new { a.SectionId, a.SubjectId, a.AcademicYearId })
             .IsUnique()
-            .HasFilter("is_active = true");
+            .HasFilter("\"IsActive\" = true");
 
         builder.HasIndex(a => a.TeacherId);
         builder.HasIndex(a => a.SectionId);

@@ -224,7 +224,7 @@ namespace SchoolERP.Infrastructure.Persistence.Migrations
                 table: "subjects",
                 columns: new[] { "TenantId", "GradeLevelId", "Code" },
                 unique: true,
-                filter: "code IS NOT NULL");
+                filter: "\"Code\" IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_evaluation_plans_SubjectId_AcademicPeriodId",

@@ -28,7 +28,7 @@ public class SchoolConfiguration : IEntityTypeConfiguration<School>
         builder.Property(s => s.LevelType).HasConversion<string>().HasMaxLength(20);
 
         builder.HasIndex(s => s.TenantId);
-        builder.HasIndex(s => new { s.TenantId, s.CodeMinerd }).IsUnique().HasFilter("code_minerd IS NOT NULL");
+        builder.HasIndex(s => new { s.TenantId, s.CodeMinerd }).IsUnique().HasFilter("\"CodeMinerd\" IS NOT NULL");
 
         builder.HasOne(s => s.Tenant)
             .WithMany(t => t.Schools)

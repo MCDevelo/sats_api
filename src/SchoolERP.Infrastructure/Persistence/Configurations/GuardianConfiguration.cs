@@ -28,7 +28,7 @@ public class GuardianConfiguration : IEntityTypeConfiguration<Guardian>
         // NationalId unique within tenant (nullable — no filtered index needed, EF null exclusion default)
         builder.HasIndex(g => new { g.TenantId, g.NationalId })
             .IsUnique()
-            .HasFilter("national_id IS NOT NULL");
+            .HasFilter("\"NationalId\" IS NOT NULL");
 
         builder.HasOne(g => g.Tenant)
             .WithMany()
