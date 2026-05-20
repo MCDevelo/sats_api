@@ -1,0 +1,37 @@
+## .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+*.log
+
+## Publish
+publish/
+out/
+
+## Secrets & local config
+**/appsettings.Development.json
+**/secrets.json
+**/*.pfx
+**/*.p12
+
+## Test results
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+
+## NuGet
+*.nupkg
+packages/
+.nuget/
+
+## OS
+.DS_Store
+Thumbs.db
+
+## Rider / VS Code
+.idea/
+.vscode/
+*.iml
