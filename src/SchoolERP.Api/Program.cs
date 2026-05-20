@@ -1,5 +1,6 @@
 using Hangfire;
 using SchoolERP.Api.Infrastructure;
+using SchoolERP.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -109,6 +110,15 @@ try
     app.UseAuthentication();
     app.UseAuthorization();
     app.MapControllers();
+
+    // Seed development data
+    if (app.Environment.IsDevelopment())
+    {
+        using var scope = app.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        var seederLogger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+        await DataSeeder.SeedAsync(db, seederLogger);
+    }
 
     // Register recurring Hangfire jobs
     using (var scope = app.Services.CreateScope())
