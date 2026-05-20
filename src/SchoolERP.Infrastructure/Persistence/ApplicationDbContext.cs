@@ -34,6 +34,8 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<Message> Messages => Set<Message>();
     public DbSet<ScheduleSlot> ScheduleSlots => Set<ScheduleSlot>();
     public DbSet<AuditLog> AuditLogs => Set<AuditLog>();
+    public DbSet<DocumentRequirement> DocumentRequirements => Set<DocumentRequirement>();
+    public DbSet<StudentDocument> StudentDocuments => Set<StudentDocument>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

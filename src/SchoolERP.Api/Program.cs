@@ -105,6 +105,7 @@ try
     });
 
     app.UseSerilogRequestLogging();
+    app.UseStaticFiles();
     app.UseCors("AllowAll");
     app.UseHttpsRedirection();
     app.UseAuthentication();

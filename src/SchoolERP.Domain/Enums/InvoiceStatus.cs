@@ -11,3 +11,5 @@ public enum EducationLevel { Inicial, Primaria, Secundaria }
 public enum Shift { Matutino, Vespertino, Nocturno }
 
 public enum Gender { M, F }
+
+public enum DocumentStatus { Pending, Received, Verified, Rejected }

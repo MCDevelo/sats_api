@@ -30,6 +30,8 @@ public interface IApplicationDbContext
     DbSet<Message> Messages { get; }
     DbSet<ScheduleSlot> ScheduleSlots { get; }
     DbSet<AuditLog> AuditLogs { get; }
+    DbSet<DocumentRequirement> DocumentRequirements { get; }
+    DbSet<StudentDocument> StudentDocuments { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

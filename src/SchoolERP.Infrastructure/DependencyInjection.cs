@@ -40,6 +40,7 @@ public static class DependencyInjection
         services.AddScoped<INotificationSender, CompositeNotificationSender>();
         services.AddScoped<INotificationDispatcher, NotificationDispatcher>();
         services.AddScoped<IReportGeneratorService, QuestPdfReportGeneratorService>();
+        services.AddScoped<IStorageService, LocalStorageService>();
 
         // Hangfire
         var connectionString = configuration.GetConnectionString("DefaultConnection")!;
