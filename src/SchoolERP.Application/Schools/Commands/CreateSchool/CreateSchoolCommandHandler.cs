@@ -9,8 +9,13 @@ namespace SchoolERP.Application.Schools.Commands.CreateSchool;
 public class CreateSchoolCommandHandler : IRequestHandler<CreateSchoolCommand, ErrorOr<Guid>>
 {
     private readonly IApplicationDbContext _db;
+    private readonly IPlanService _planService;
 
-    public CreateSchoolCommandHandler(IApplicationDbContext db) => _db = db;
+    public CreateSchoolCommandHandler(IApplicationDbContext db, IPlanService planService)
+    {
+        _db = db;
+        _planService = planService;
+    }
 
     public async Task<ErrorOr<Guid>> Handle(CreateSchoolCommand request, CancellationToken cancellationToken)
     {
@@ -19,6 +24,15 @@ public class CreateSchoolCommandHandler : IRequestHandler<CreateSchoolCommand, E
 
         if (!tenantExists)
             return Error.NotFound("Tenant.NotFound", "Tenant no encontrado o inactivo.");
+
+        var limits = await _planService.GetLimitsAsync(request.TenantId, cancellationToken);
+        if (limits.MaxSchools.HasValue)
+        {
+            var count = await _db.Schools.CountAsync(s => s.TenantId == request.TenantId && s.IsActive, cancellationToken);
+            if (count >= limits.MaxSchools.Value)
+                return Error.Unauthorized("Plan.SchoolLimitReached",
+                    $"Su plan permite un máximo de {limits.MaxSchools.Value} escuela(s). Actualice su suscripción.");
+        }
 
         if (!string.IsNullOrWhiteSpace(request.CodeMinerd))
         {

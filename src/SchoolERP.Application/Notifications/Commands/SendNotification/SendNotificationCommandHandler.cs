@@ -8,16 +8,26 @@ public class SendNotificationCommandHandler : IRequestHandler<SendNotificationCo
 {
     private readonly INotificationDispatcher _dispatcher;
     private readonly ICurrentUserService _currentUser;
+    private readonly IPlanService _planService;
 
-    public SendNotificationCommandHandler(INotificationDispatcher dispatcher, ICurrentUserService currentUser)
+    public SendNotificationCommandHandler(INotificationDispatcher dispatcher, ICurrentUserService currentUser, IPlanService planService)
     {
         _dispatcher = dispatcher;
         _currentUser = currentUser;
+        _planService = planService;
     }
 
     public async Task<ErrorOr<SendNotificationResult>> Handle(SendNotificationCommand request, CancellationToken cancellationToken)
     {
         var tenantId = _currentUser.TenantId!.Value;
+
+        if (request.Channels.Contains(NotificationChannel.WhatsApp))
+        {
+            var limits = await _planService.GetLimitsAsync(tenantId, cancellationToken);
+            if (!limits.AllowsWhatsApp)
+                return Error.Unauthorized("Plan.WhatsAppNotAvailable",
+                    "WhatsApp Business no está disponible en su plan. Actualice a Professional o superior.");
+        }
 
         var notifRequest = new NotificationRequest(
             TenantId: tenantId,

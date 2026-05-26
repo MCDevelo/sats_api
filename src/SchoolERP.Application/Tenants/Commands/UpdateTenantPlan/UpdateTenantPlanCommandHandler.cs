@@ -19,7 +19,7 @@ public class UpdateTenantPlanCommandHandler : IRequestHandler<UpdateTenantPlanCo
         if (tenant is null)
             return Error.NotFound("Tenant.NotFound", "Tenant no encontrado.");
 
-        var validPlans = new[] { "trial", "basic", "standard", "premium" };
+        var validPlans = new[] { "trial", "starter", "professional", "enterprise" };
         if (!validPlans.Contains(request.Plan, StringComparer.OrdinalIgnoreCase))
             return Error.Validation("Tenant.InvalidPlan", $"Plan inválido. Opciones: {string.Join(", ", validPlans)}.");
 

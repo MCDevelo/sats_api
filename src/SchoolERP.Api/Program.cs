@@ -48,7 +48,10 @@ try
 
     builder.Services.AddAuthorization();
 
-    builder.Services.AddControllers();
+    builder.Services.AddControllers()
+        .AddJsonOptions(opts =>
+            opts.JsonSerializerOptions.Converters.Add(
+                new System.Text.Json.Serialization.JsonStringEnumConverter()));
     builder.Services.AddEndpointsApiExplorer();
 
     builder.Services.AddSwaggerGen(c =>
@@ -110,6 +113,7 @@ try
     app.UseHttpsRedirection();
     app.UseAuthentication();
     app.UseAuthorization();
+    app.UseMiddleware<PlanActiveMiddleware>();
     app.MapControllers();
 
     // Seed development data

@@ -11,11 +11,13 @@ public class EnrollStudentCommandHandler : IRequestHandler<EnrollStudentCommand,
 {
     private readonly IApplicationDbContext _db;
     private readonly ICurrentUserService _currentUser;
+    private readonly IPlanService _planService;
 
-    public EnrollStudentCommandHandler(IApplicationDbContext db, ICurrentUserService currentUser)
+    public EnrollStudentCommandHandler(IApplicationDbContext db, ICurrentUserService currentUser, IPlanService planService)
     {
         _db = db;
         _currentUser = currentUser;
+        _planService = planService;
     }
 
     public async Task<ErrorOr<Guid>> Handle(EnrollStudentCommand request, CancellationToken cancellationToken)
@@ -35,6 +37,16 @@ public class EnrollStudentCommandHandler : IRequestHandler<EnrollStudentCommand,
 
         if (!studentExists)
             return Error.NotFound("Student.NotFound", "Estudiante no encontrado.");
+
+        // Check plan student quota
+        var limits = await _planService.GetLimitsAsync(tenantId, cancellationToken);
+        if (limits.MaxStudents.HasValue)
+        {
+            var count = await _db.Students.CountAsync(s => s.TenantId == tenantId && s.IsActive, cancellationToken);
+            if (count >= limits.MaxStudents.Value)
+                return Error.Unauthorized("Plan.StudentLimitReached",
+                    $"Su plan permite un máximo de {limits.MaxStudents.Value} estudiantes activos. Actualice su suscripción.");
+        }
 
         // Check if student is already actively enrolled in ANY section for this academic year
         var alreadyEnrolled = await _db.Enrollments
@@ -59,7 +71,9 @@ public class EnrollStudentCommandHandler : IRequestHandler<EnrollStudentCommand,
             request.StudentId,
             request.SectionId,
             section.AcademicYearId,
-            request.EnrollmentDate);
+            request.EnrollmentDate.HasValue
+                ? DateTime.SpecifyKind(request.EnrollmentDate.Value, DateTimeKind.Utc)
+                : null);
 
         _db.Enrollments.Add(enrollment);
         await _db.SaveChangesAsync(cancellationToken);

@@ -10,16 +10,23 @@ public class CreateInvoiceCommandHandler : IRequestHandler<CreateInvoiceCommand,
 {
     private readonly IApplicationDbContext _db;
     private readonly ICurrentUserService _currentUser;
+    private readonly IPlanService _planService;
 
-    public CreateInvoiceCommandHandler(IApplicationDbContext db, ICurrentUserService currentUser)
+    public CreateInvoiceCommandHandler(IApplicationDbContext db, ICurrentUserService currentUser, IPlanService planService)
     {
         _db = db;
         _currentUser = currentUser;
+        _planService = planService;
     }
 
     public async Task<ErrorOr<InvoiceResult>> Handle(CreateInvoiceCommand request, CancellationToken cancellationToken)
     {
         var tenantId = _currentUser.TenantId!.Value;
+
+        var limits = await _planService.GetLimitsAsync(tenantId, cancellationToken);
+        if (!limits.AllowsFinancialModule)
+            return Error.Unauthorized("Plan.FinancialModuleNotAvailable",
+                "El módulo financiero no está disponible en su plan. Actualice a Professional o superior.");
 
         var student = await _db.Students
             .FirstOrDefaultAsync(s => s.Id == request.StudentId && s.TenantId == tenantId && s.IsActive, cancellationToken);
